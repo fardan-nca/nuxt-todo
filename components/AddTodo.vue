@@ -20,6 +20,20 @@ export default {
     components:{
         TodoList
     },
+    mounted() {
+      const cacheData = JSON.parse(localStorage.getItem('addedTodos'));
+      if (cacheData && cacheData.length > 0) {
+        this.todos = cacheData;
+      }
+    },
+    watch: {
+        todos:{
+            handler(val){
+                localStorage.setItem('addedTodos', JSON.stringify(val));
+            },
+            deep:true,
+        }
+    },
     methods: {
         todoData() {
             // console.log(this.newTodo);
